@@ -69,5 +69,23 @@ public class MyBST<T> {
         }
     }
 
+    public boolean search(T element) throws Exception {
+        if (isEmpty()) throw new Exception("Tree is empty");
+
+        return searchHelperRecursive(root, element);
+    }
+
+    private boolean searchHelperRecursive(MyTreeNode<T> node, T element) {
+        if (node.getElement().equals(element)) return true;
+
+        else if (((Comparable)node.getElement()).compareTo(element) == 1) {
+            if (node.getLeft() != null) return searchHelperRecursive(node.getLeft(), element);
+        } else if (((Comparable)node.getElement()).compareTo(element) == -1) {
+            if (node.getRight() != null) return searchHelperRecursive(node.getRight(), element);
+        }
+
+        return false;
+    }
+
 
 }
