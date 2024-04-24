@@ -78,7 +78,7 @@ public class MyBST<T> {
     private boolean searchHelperRecursive(MyTreeNode<T> node, T element) {
         if (node.getElement().equals(element)) return true;
 
-        else if (((Comparable)node.getElement()).compareTo(element) == 1) {
+        if (((Comparable)node.getElement()).compareTo(element) == 1) {
             if (node.getLeft() != null) return searchHelperRecursive(node.getLeft(), element);
         } else if (((Comparable)node.getElement()).compareTo(element) == -1) {
             if (node.getRight() != null) return searchHelperRecursive(node.getRight(), element);
@@ -87,5 +87,25 @@ public class MyBST<T> {
         return false;
     }
 
+    public void delete(T element) throws Exception {
+        if (isEmpty()) throw new Exception("Tree is empty");
 
+        deleteHelperRecursive(root, element);
+    }
+
+    private void deleteHelperRecursive(MyTreeNode<T> node, T element) throws Exception {
+        if (!search(element)) throw new Exception("Element " + element + " is not in the tree");
+
+        if (node.getElement().equals(element)) {
+            if (node.getLeft() == null && node.getRight() == null) {
+                MyTreeNode<T> parent = node.getParent();
+
+                if (parent.getLeft().equals(node)) {
+                    parent.setLeft(null);
+                } else if (parent.getRight().equals(node)) {
+                    parent.setRight(null);
+                }
+            }
+        }
+    }
 }
